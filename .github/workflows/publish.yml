@@ -1,0 +1,52 @@
+name: publish
+on:
+  schedule:
+    - cron: "20 12 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv python install 3.12
+      - name: Fetch the published file, for carry-forward
+        run: |
+          mkdir -p out
+          curl -fsSL "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/v1/prices.json" -o out/prices.json || rm -f out/prices.json
+      - name: Generate
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: uv run --frozen python -m energyprices generate --out out
+      - name: Assemble the site
+        run: |
+          mkdir -p site/v1
+          uv run --frozen python tools/browse.py --prices out/prices.json --out site/index.html
+          cp out/prices.json site/v1/prices.json
+          cp schema/prices.schema.json site/v1/prices.schema.json
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      actions: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
+      - name: Keep the schedule alive (GitHub disables it after 60 days without a commit)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable publish.yml --repo "${{ github.repository }}"

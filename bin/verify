@@ -1,0 +1,5 @@
+#!/bin/sh
+# The one verification entry point, shared by agents and CI.
+set -eu
+cd "$(dirname "$0")/.."
+uv run --frozen pytest -q

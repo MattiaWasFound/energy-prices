@@ -1,0 +1,16 @@
+table_instead_of_live = []
+
+[bounds]
+live_min = -1.0
+live_max = 5.0
+static_min = 0.005
+static_max = 1.5
+
+# Alternative prices the user can pick in the client, published as the
+# country's `options`. kind "fixed_energy": the tariff row's fixed_energy
+# replaces the spot price (Norway's Norgespris), for the average and every zone.
+[[options]]
+country = "NO"
+id = "norgespris"
+name = "Norgespris"
+kind = "fixed_energy"

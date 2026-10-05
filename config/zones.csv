@@ -1,0 +1,188 @@
+country,id,name,area,weight,weight_source
+SE,SE1,SE1 Luleå,SE1,,
+SE,SE2,SE2 Sundsvall,SE2,,
+SE,SE3,SE3 Stockholm,SE3,,
+SE,SE4,SE4 Malmö,SE4,,
+NO,NO1,NO1 Øst (Oslo),NO1,,
+NO,NO2,NO2 Sør (Kristiansand),NO2,,
+NO,NO3,NO3 Midt (Trondheim),NO3,,
+NO,NO4,NO4 Nord (Tromsø),NO4,,
+NO,NO5,NO5 Vest (Bergen),NO5,,
+US,US-AL,Alabama,,,
+US,US-AK,Alaska,,,
+US,US-AZ,Arizona,,,
+US,US-AR,Arkansas,,,
+US,US-CA,California,,,
+US,US-CO,Colorado,,,
+US,US-CT,Connecticut,,,
+US,US-DE,Delaware,,,
+US,US-DC,District of Columbia,,,
+US,US-FL,Florida,,,
+US,US-GA,Georgia,,,
+US,US-HI,Hawaii,,,
+US,US-ID,Idaho,,,
+US,US-IL,Illinois,,,
+US,US-IN,Indiana,,,
+US,US-IA,Iowa,,,
+US,US-KS,Kansas,,,
+US,US-KY,Kentucky,,,
+US,US-LA,Louisiana,,,
+US,US-ME,Maine,,,
+US,US-MD,Maryland,,,
+US,US-MA,Massachusetts,,,
+US,US-MI,Michigan,,,
+US,US-MN,Minnesota,,,
+US,US-MS,Mississippi,,,
+US,US-MO,Missouri,,,
+US,US-MT,Montana,,,
+US,US-NE,Nebraska,,,
+US,US-NV,Nevada,,,
+US,US-NH,New Hampshire,,,
+US,US-NJ,New Jersey,,,
+US,US-NM,New Mexico,,,
+US,US-NY,New York,,,
+US,US-NC,North Carolina,,,
+US,US-ND,North Dakota,,,
+US,US-OH,Ohio,,,
+US,US-OK,Oklahoma,,,
+US,US-OR,Oregon,,,
+US,US-PA,Pennsylvania,,,
+US,US-RI,Rhode Island,,,
+US,US-SC,South Carolina,,,
+US,US-SD,South Dakota,,,
+US,US-TN,Tennessee,,,
+US,US-TX,Texas,,,
+US,US-UT,Utah,,,
+US,US-VT,Vermont,,,
+US,US-VA,Virginia,,,
+US,US-WA,Washington,,,
+US,US-WV,West Virginia,,,
+US,US-WI,Wisconsin,,,
+US,US-WY,Wyoming,,,
+RU,RU-ALT,Алтайский край,,0.014612,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-AMU,Амурская область,,0.005242,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-ARK,Архангельская область,,0.006596,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-AST,Астраханская область,,0.006589,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-BEL,Белгородская область,,0.010316,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-BRY,Брянская область,,0.007885,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-VLA,Владимирская область,,0.009035,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-VGG,Волгоградская область,,0.016943,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-VLG,Вологодская область,,0.007764,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-VOR,Воронежская область,,0.015732,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-MOW,Город федерального значения Москва,,0.092401,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-SPE,Город федерального значения Санкт-Петербург,,0.039349,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-YEV,Еврейская автономная область,,0.001005,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-ZAB,Забайкальский край,,0.006848,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-IVA,Ивановская область,,0.006254,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-IRK,Иркутская область,,0.016165,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KB,Кабардино-Балкарская Республика,,0.006322,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KGD,Калининградская область,,0.00719,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KLU,Калужская область,,0.007425,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KAM,Камчатский край,,0.002006,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KC,Карачаево-Черкесская Республика,,0.003262,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KEM,Кемеровская область - Кузбасс,,0.017592,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KIR,Кировская область,,0.007799,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KOS,Костромская область,,0.003904,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KDA,Краснодарский край,,0.040667,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KYA,Красноярский край,,0.019755,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KGN,Курганская область,,0.005182,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KRS,Курская область,,0.007307,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-LEN,Ленинградская область,,0.014336,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-LIP,Липецкая область,,0.007715,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-MAG,Магаданская область,,0.000937,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-MOS,Московская область,,0.061087,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-MUR,Мурманская область,,0.004534,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-NEN,Ненецкий автономный округ,,0.000292,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-NIZ,Нижегородская область,,0.021157,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-NGR,Новгородская область,,0.003947,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-NVS,Новосибирская область,,0.019397,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-OMS,Омская область,,0.01257,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-ORE,Оренбургская область,,0.012647,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-ORL,Орловская область,,0.004776,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-PNZ,Пензенская область,,0.00854,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-PER,Пермский край,,0.017288,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-PRI,Приморский край,,0.012527,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-PSK,Псковская область,,0.003999,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-AD,Республика Адыгея,,0.003486,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-AL,Республика Алтай,,0.001462,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-BA,Республика Башкортостан,,0.028139,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-BU,Республика Бурятия,,0.00676,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-DA,Республика Дагестан,,0.022692,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-IN,Республика Ингушетия,,0.003721,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KL,Республика Калмыкия,,0.001863,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KR,Республика Карелия,,0.003612,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KO,Республика Коми,,0.004976,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-ME,Республика Марий Эл,,0.004637,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-MO,Республика Мордовия,,0.005283,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-SA,Республика Саха,,0.007007,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-SE,Республика Северная Осетия - Алания,,0.004725,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-TA,Республика Татарстан,,0.02798,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-TY,Республика Тыва,,0.002356,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KK,Республика Хакасия,,0.003658,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-ROS,Ростовская область,,0.0288,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-RYA,Рязанская область,,0.007479,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-SAM,Самарская область,,0.021666,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-SAR,Саратовская область,,0.016493,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-SAK,Сахалинская область,,0.003185,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-SVE,Свердловская область,,0.029385,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-SMO,Смоленская область,,0.005966,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-STA,Ставропольский край,,0.020078,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-TAM,Тамбовская область,,0.00659,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-TVE,Тверская область,,0.008287,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-TOM,Томская область,,0.007237,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-TUL,Тульская область,,0.010141,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-TYU,Тюменская область,,0.011324,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-UD,Удмуртская Республика,,0.009935,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-ULY,Ульяновская область,,0.008112,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KHA,Хабаровский край,,0.008865,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-KHM,Ханты-Мансийский автономный округ - Югра,,0.012403,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-CHE,Челябинская область,,0.023564,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-CE,Чеченская Республика,,0.010974,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-CU,Чувашская Республика,,0.008073,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-CHU,Чукотский автономный округ,,0.000333,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-YAN,Ямало-Ненецкий автономный округ,,0.003641,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+RU,RU-YAR,Ярославская область,,0.008215,Rosstat population 1 Jan 2025 (OkPopul_Comp2025_Site.xlsx)
+CA,CA-AB,Alberta,,0.122039,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-BC,British Columbia,,0.136622,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-MB,Manitoba,,0.036302,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-NB,New Brunswick,,0.021138,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-NL,Newfoundland and Labrador,,0.013217,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-NT,Northwest Territories,,0.001098,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-NS,Nova Scotia,,0.026399,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-NU,Nunavut,,0.001031,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-ON,Ontario,,0.389061,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-PE,Prince Edward Island,,0.004378,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-QC,Quebec,,0.216925,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-SK,Saskatchewan,,0.030585,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+CA,CA-YT,Yukon,,0.001205,"Statistics Canada 17-10-0009-01, population 2026-07-01"
+KZ,KZ-71,Астана,,0.075042,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-75,Алматы,,0.11282,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-79,Шымкент,,0.061844,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-10,область Абай,,0.029772,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-11,Акмолинская область,,0.038879,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-15,Актюбинская область,,0.046828,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-19,Алматинская область,,0.076877,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-23,Атырауская область,,0.035049,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-63,Восточно-Казахстанская область,,0.035731,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-31,Жамбылская область,,0.06032,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-33,область Жетісу,,0.034292,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-27,Западно-Казахстанская область,,0.034331,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-35,Карагандинская область,,0.055958,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-39,Костанайская область,,0.040746,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-43,Кызылординская область,,0.041746,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-47,Мангистауская область,,0.039655,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-55,Павлодарская область,,0.037091,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-59,Северо-Казахстанская область,,0.025793,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-61,Туркестанская область,,0.106305,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+KZ,KZ-62,область Ұлытау,,0.010921,"Bureau of National Statistics population 1 Dec 2024 (ru.wikipedia, Административно-территориальное деление Казахстана)"
+IQ,IQ-KR,إقليم كوردستان,,0.141355,"2024 census final results: Kurdistan Region 6,519,129 of 46,118,793 (peregraf.com/en/news/10297)"
+IQ,IQ-FED,محافظات العراق الأخرى,,0.858645,"2024 census final results: 46,118,793 minus Kurdistan Region 6,519,129"
+SO,SO-BN,Banaadir (Muqdisho),,0.16919,"OCHA Somalia subnational population estimates 2025 (18 regions, via en.wikipedia Regions of Somalia), mapped to member states; Mudug, Sool, Sanaag split 50/50"
+SO,SO-JUB,Jubaland,,0.137116,"OCHA Somalia subnational population estimates 2025 (18 regions, via en.wikipedia Regions of Somalia), mapped to member states; Mudug, Sool, Sanaag split 50/50"
+SO,SO-SWS,Koonfur Galbeed,,0.180994,"OCHA Somalia subnational population estimates 2025 (18 regions, via en.wikipedia Regions of Somalia), mapped to member states; Mudug, Sool, Sanaag split 50/50"
+SO,SO-HIR,Hirshabeelle,,0.081189,"OCHA Somalia subnational population estimates 2025 (18 regions, via en.wikipedia Regions of Somalia), mapped to member states; Mudug, Sool, Sanaag split 50/50"
+SO,SO-GAL,Galmudug,,0.082773,"OCHA Somalia subnational population estimates 2025 (18 regions, via en.wikipedia Regions of Somalia), mapped to member states; Mudug, Sool, Sanaag split 50/50"
+SO,SO-PUN,Puntland,,0.165142,"OCHA Somalia subnational population estimates 2025 (18 regions, via en.wikipedia Regions of Somalia), mapped to member states; Mudug, Sool, Sanaag split 50/50"
+SO,SO-SML,Somaliland,,0.183596,"OCHA Somalia subnational population estimates 2025 (18 regions, via en.wikipedia Regions of Somalia), mapped to member states; Mudug, Sool, Sanaag split 50/50"
+KN,KN-K,St Kitts,,0.743141,"2022 Population and Housing Census summary report: St Kitts 38,138 of 51,320"
+KN,KN-N,Nevis,,0.256859,"2022 Population and Housing Census summary report: Nevis 13,182 of 51,320"

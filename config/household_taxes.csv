@@ -1,0 +1,52 @@
+zone,rate,local_rate,per_kwh,note,confidence
+US-AK,0,0,0,"No state sales tax; some boroughs tax, Anchorage none",medium
+US-AL,0.04,0,0,"Utility gross receipts tax 4% per customer, added to the bill (Ala. Code 40-21-80..88); electricity exempt from sales tax",high
+US-AR,0.065,0.025,0,Sales tax 6.5% (A.C.A. 26-52-301); local est. 2.5%,high
+US-AZ,0.056,0.03,0,"TPT utilities 5% + 0.6% education (A.R.S. 42-5010, 42-5010.01), passed through; county + city TPT est. 3%",high
+US-CA,0,0.04,0,Exempt from sales tax (RTC 6353); state surcharge 0.03 c/kWh ignored; city utility users' taxes est. 4%,high
+US-CO,0,0.02,0,Residential exempt from state tax (C.R.S. 39-26-715); local/home-rule est. 2%,high
+US-CT,0,0,0,Residential exempt (C.G.S. 12-412(3)(A)),high
+US-DC,0,0,0.007,"Residential exempt from sales tax; delivery tax $0.007/kWh, separate bill line (D.C. Code 47-2501(d-1))",high
+US-DE,0,0,0,No sales tax; public utility tax is non-residential only (30 Del. C. 5502),high
+US-FL,0.025,0.06,0,"Gross receipts tax 2.5% itemized on bills (F.S. 203.01); municipal public service tax up to 10% (F.S. 166.231), est. 6%",high
+US-GA,0.04,0.035,0,"Sales tax 4%, no residential exemption (Ga. Reg. 560-12-2-.32); local est. 3.5%",high
+US-HI,0,0,0,"Public service company and franchise taxes are in the tariff rates already (HRS 239-5, 240-1)",medium
+US-IA,0,0.01,0,Exempt from state tax; 1% local option sales tax,high
+US-ID,0,0,0,Exempt (Idaho Code 63-3622F),medium
+US-IL,0,0.04,0.0033,"Electricity excise 0.330 c/kWh on the purchaser, first 2,000 kWh (35 ILCS 640/2-4); municipal utility tax est. 4%",high
+US-IN,0.07,0,0,Sales tax 7% on all residential electricity; 2026 repeal attempts failed,high
+US-KS,0,0.02,0,Exempt from state tax since 2006 (K.S.A. 79-3603(u)); local est. 2%,high
+US-KY,0,0.03,0,Domicile exempt (KRS 139.470(7)); school utility gross receipts license tax up to 3% (KRS 160.613),medium
+US-LA,0,0,0,Residential exempt from state and local (La. Const. Art. VII 2.2),high
+US-MA,0,0,0,Residential exempt (G.L. c. 64H s. 6(i)),medium
+US-MD,0,0,0,Residential exempt (Tax-General 11-207); county energy taxes not counted,high
+US-ME,0,0,0,First 750 kWh/month exempt (36 MRSA 1760(9-B)); typical household under it,high
+US-MI,0.04,0,0,Residential at 4% (MCL 205.54n),medium
+US-MN,0.06875,0.01,0,Taxed except Nov-Apr for electric-heat homes (Minn. Stat. 297A.67 subd. 15); local est. 1%,high
+US-MO,0,0.04,0,Domestic exempt from state (RSMo 144.030); local reimposition and city utility taxes est. 4%,high
+US-MS,0,0,0,Residential exempt (Miss. Code 27-65-107),high
+US-MT,0,0,0,No sales tax,medium
+US-NC,0.07,0,0,Electricity at 7% statewide (G.S. 105-164.4(a)(9)),high
+US-ND,0,0,0,Exempt (NDCC 57-39.2-04),high
+US-NE,0.055,0.015,0,Sales tax 5.5% (Neb. Rev. Stat. 77-2703); LB 117 exemption failed 2026; local est. 1.5%,high
+US-NH,0,0,0,No sales tax; consumption tax repealed 2019,medium
+US-NJ,0.06625,0,0,"Sales tax 6.625% on utility service (N.J.S.A. 54:32B-3(b)(7)), built into the rate by law; S1932 suspension not enacted",high
+US-NM,0.04875,0.028,0,Gross receipts tax 4.875% passed through (NMSA 7-9-4); local est. 2.8%,medium
+US-NV,0,0,0,Exempt (NRS 372.295),medium
+US-NY,0,0.03,0,"Exempt from state tax (Tax Law 1105-A); local up to 4.5% (NYC), population-weighted est. 3%",high
+US-OH,0,0,0,Exempt from sales tax; kWh excise on the utility is in rates (R.C. 5727.81),medium
+US-OK,0,0.04,0,"Exempt from state tax, not from city/county (68 O.S. 1357(8)); local est. 4%",medium
+US-OR,0,0,0,No sales tax,high
+US-PA,0,0,0,Residential exempt (72 P.S. 7204(5)); 5.9% gross receipts tax is in rates,high
+US-RI,0.0417,0,0,"Electricity exempt from sales tax; 4% gross earnings tax itemized on bills (R.I. Gen. Laws 44-13-4), 4.17% on the pre-tax bill",medium
+US-SC,0,0,0,Residential exempt (S.C. Code 12-36-2120(33)),high
+US-SD,0.042,0.02,0,4.2% through 2027-06-30 (SDCL 10-45-6); municipal up to 2%,high
+US-TN,0,0,0,Residential exempt (Tenn. Code 67-6-334),high
+US-TX,0,0.01,0,"Residential exempt from state (Tax Code 151.317); some cities tax it, est. 1%",high
+US-UT,0.02,0.07,0,"State 2% on residential energy (Utah Code 59-12-103(2)(b)); local sales ~1% + municipal energy tax up to 6% (10-1-304), est. 7%",high
+US-VA,0,0.015,0.001595,"Exempt from sales tax; consumption tax $0.001595/kWh first 2,500 kWh (Va. Code 58.1-2900); local utility tax capped $3/month, est. 1.5%",high
+US-VT,0.005,0,0,Exempt from sales tax; 0.5% fuel gross receipts tax itemized (33 V.S.A. 2503),high
+US-WA,0,0.05,0,"Exempt from sales tax; city utility taxes up to 6% passed through, est. 5%",high
+US-WI,0,0,0,Residential exempt all year from 2025-10-01 (2025 Wis. Act 15),high
+US-WV,0,0,0,Exempt (W. Va. Code 11-15-9(a)(1)),high
+US-WY,0.04,0.015,0,"Sales tax 4% (W.S. 39-15-103, 104); county est. 1.5%",high

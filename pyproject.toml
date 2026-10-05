@@ -1,0 +1,16 @@
+[project]
+name = "energyprices"
+version = "0.1.0"
+description = "Builds prices.json: household electricity price per kWh for every country"
+requires-python = ">=3.12"
+dependencies = [
+    "certifi>=2026.7.22",
+    "jsonschema>=4.23",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

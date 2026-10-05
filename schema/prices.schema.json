@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mattiawasfound.github.io/energy-prices/v1/prices.schema.json",
+  "title": "Household electricity prices per kWh, by country",
+  "description": "One file covering every ISO 3166-1 alpha-2 code plus XK. Each country has an average entry and an optional ordered list of zones. A client takes the selected entry; if it has a series covering the current UTC time it uses that slot's value, otherwise the entry's flat value. An average with basis educated-guess is a labelled guess for a place with no published price, with a reason to show beside it; one with basis no-published-price has no price, only a reason to show instead. Prices include all taxes and fees and are in the country's currency.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "unit", "fx_base", "fx", "countries"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "generated_at": { "$ref": "#/$defs/utc_timestamp" },
+    "unit": { "const": "kWh" },
+    "fx_base": { "const": "EUR" },
+    "fx": {
+      "description": "Units of each currency per 1 EUR, for every currency that appears in the file. EUR itself is 1.",
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/currency" },
+      "additionalProperties": { "type": "number", "exclusiveMinimum": 0 },
+      "required": ["EUR"]
+    },
+    "countries": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Z]{2}$" },
+      "additionalProperties": { "$ref": "#/$defs/country" },
+      "minProperties": 1
+    }
+  },
+  "$defs": {
+    "utc_timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "price": {
+      "description": "Per kWh in the country's currency, rounded to 4 decimal places. May be negative.",
+      "type": "number"
+    },
+    "country": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "currency", "zone_label", "average", "zones"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "currency": { "$ref": "#/$defs/currency" },
+        "zone_label": {
+          "description": "Title of the zone dropdown; null exactly when zones is empty.",
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "average": { "$ref": "#/$defs/entry" },
+        "zones": {
+          "description": "In display order.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/zone" }
+        },
+        "options": {
+          "description": "Optional. Alternative prices the user can choose instead of the default (e.g. Norway's Norgespris). Each option repeats the country's structure: an average and one entry per zone, same ids, same order. A client that ignores options shows the default.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/option" }
+        }
+      },
+      "if": { "properties": { "zones": { "maxItems": 0 } } },
+      "then": { "properties": { "zone_label": { "type": "null" } } },
+      "else": { "properties": { "zone_label": { "type": "string" } } }
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "average", "zones"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "name": { "type": "string", "minLength": 1 },
+        "average": { "$ref": "#/$defs/entry" },
+        "zones": { "type": "array", "items": { "$ref": "#/$defs/zone" } }
+      }
+    },
+    "zone": {
+      "allOf": [{ "$ref": "#/$defs/entry_fields" }],
+      "type": "object",
+      "unevaluatedProperties": false,
+      "required": ["id", "name", "precision", "basis", "flat"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9-]*$" },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "entry": {
+      "allOf": [{ "$ref": "#/$defs/entry_fields" }],
+      "type": "object",
+      "unevaluatedProperties": false,
+      "required": ["precision", "basis"]
+    },
+    "entry_fields": {
+      "type": "object",
+      "properties": {
+        "precision": { "enum": ["live", "estimated", "none"] },
+        "basis": { "enum": ["day-ahead", "country-table", "regional-average", "global-average", "educated-guess", "no-published-price"] },
+        "reason": {
+          "description": "educated-guess and no-published-price only: what the guess rests on, or why there is no price, in English, for display.",
+          "type": "string",
+          "minLength": 1
+        },
+        "as_of": {
+          "description": "The month a static figure refers to.",
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+        },
+        "flat": {
+          "$ref": "#/$defs/price",
+          "description": "Present unless basis is no-published-price. For live entries the mean of the most recent complete delivery day, used when the series does not cover the current time; otherwise the price."
+        },
+        "series": {
+          "description": "Live entries only. values[i] applies from start + i * step_minutes. Covers the current delivery day through the last published one; absent when the last fresh data no longer reaches today.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["start", "step_minutes", "values"],
+          "properties": {
+            "start": { "$ref": "#/$defs/utc_timestamp" },
+            "step_minutes": { "enum": [15, 30, 60] },
+            "values": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/price" } }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "basis": { "const": "day-ahead" } }, "required": ["basis"] },
+          "then": { "properties": { "precision": { "const": "live" } } }
+        },
+        {
+          "if": { "properties": { "basis": { "enum": ["country-table", "regional-average", "global-average", "educated-guess"] } }, "required": ["basis"] },
+          "then": { "properties": { "precision": { "const": "estimated" } }, "not": { "required": ["series"] } }
+        },
+        {
+          "if": { "properties": { "basis": { "const": "no-published-price" } }, "required": ["basis"] },
+          "then": {
+            "properties": { "precision": { "const": "none" } },
+            "required": ["reason"],
+            "not": { "anyOf": [{ "required": ["flat"] }, { "required": ["series"] }, { "required": ["as_of"] }] }
+          },
+          "else": { "required": ["flat"] }
+        },
+        {
+          "if": { "properties": { "basis": { "enum": ["educated-guess", "no-published-price"] } }, "required": ["basis"] },
+          "then": { "required": ["reason"] },
+          "else": { "not": { "required": ["reason"] } }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+area,country,weight,weight_source,entsoe_eic,eds_area
+AT,AT,1,single area,10YAT-APG------L,
+BE,BE,1,single area,10YBE----------2,
+BG,BG,1,single area,10YCA-BULGARIA-R,
+CH,CH,1,single area,10YCH-SWISSGRIDZ,
+CZ,CZ,1,single area,10YCZ-CEPS-----N,
+DE-LU,DE,1,single area,10Y1001A1001A82H,DE
+DE-LU,LU,1,single area,10Y1001A1001A82H,DE
+DK1,DK,0.5343,"Statistics Denmark FOLK1A population by region 2026Q3; DK1 = Nordjylland+Midtjylland+Syddanmark, DK2 = Hovedstaden+Sjælland",10YDK-1--------W,DK1
+DK2,DK,0.4657,"Statistics Denmark FOLK1A population by region 2026Q3; DK1 = Nordjylland+Midtjylland+Syddanmark, DK2 = Hovedstaden+Sjælland",10YDK-2--------M,DK2
+EE,EE,1,single area,10Y1001A1001A39I,
+ES,ES,1,single area,10YES-REE------0,
+FI,FI,1,single area,10YFI-1--------U,
+FR,FR,1,single area,10YFR-RTE------C,
+GR,GR,1,single area,10YGR-HTSO-----Y,
+HR,HR,1,single area,10YHR-HEP------M,
+HU,HU,1,single area,10YHU-MAVIR----U,
+IE-SEM,IE,1,single area (the SEM also covers Northern Ireland; GB is priced from its own table),10Y1001A1001A59C,
+IT-NORD,IT,0.4678,"ISTAT POSAS resident population by region 2026-01-01; regions mapped to Terna zones in force since 2021-01-01 (ARERA 103/2019)",10Y1001A1001A73I,
+IT-CNOR,IT,0.0872,"ISTAT POSAS resident population by region 2026-01-01; regions mapped to Terna zones in force since 2021-01-01 (ARERA 103/2019)",10Y1001A1001A70O,
+IT-CSUD,IT,0.2273,"ISTAT POSAS resident population by region 2026-01-01; regions mapped to Terna zones in force since 2021-01-01 (ARERA 103/2019)",10Y1001A1001A71M,
+IT-SUD,IT,0.0793,"ISTAT POSAS resident population by region 2026-01-01; regions mapped to Terna zones in force since 2021-01-01 (ARERA 103/2019)",10Y1001A1001A788,
+IT-CALA,IT,0.031,"ISTAT POSAS resident population by region 2026-01-01; regions mapped to Terna zones in force since 2021-01-01 (ARERA 103/2019)",10Y1001C--00096J,
+IT-SICI,IT,0.081,"ISTAT POSAS resident population by region 2026-01-01; regions mapped to Terna zones in force since 2021-01-01 (ARERA 103/2019)",10Y1001A1001A75E,
+IT-SARD,IT,0.0264,"ISTAT POSAS resident population by region 2026-01-01; regions mapped to Terna zones in force since 2021-01-01 (ARERA 103/2019)",10Y1001A1001A74G,
+LT,LT,1,single area,10YLT-1001A0008Q,
+LV,LV,1,single area,10YLV-1001A00074,
+ME,ME,1,single area,10YCS-CG-TSO---S,
+MK,MK,1,single area,10YMK-MEPSO----8,
+NL,NL,1,single area,10YNL----------L,
+NO1,NO,0.4192,"Elhub open data, household metering points per price area, 2026-09-27",10YNO-1--------2,
+NO2,NO,0.2374,"Elhub open data, household metering points per price area, 2026-09-27",10YNO-2--------T,NO2
+NO3,NO,0.1541,"Elhub open data, household metering points per price area, 2026-09-27",10YNO-3--------J,
+NO4,NO,0.0920,"Elhub open data, household metering points per price area, 2026-09-27",10YNO-4--------9,
+NO5,NO,0.0973,"Elhub open data, household metering points per price area, 2026-09-27",10Y1001A1001A48H,
+PL,PL,1,single area,10YPL-AREA-----S,
+PT,PT,1,single area,10YPT-REN------W,
+RO,RO,1,single area,10YRO-TEL------P,
+RS,RS,1,single area,10YCS-SERBIATSOV,
+SE1,SE,0.0335,"SCB EN0105A, permanent-dwelling metering points per elområde, 2024",10Y1001A1001A44P,
+SE2,SE,0.0726,"SCB EN0105A, permanent-dwelling metering points per elområde, 2024",10Y1001A1001A45N,
+SE3,SE,0.6840,"SCB EN0105A, permanent-dwelling metering points per elområde, 2024",10Y1001A1001A46L,SE3
+SE4,SE,0.2099,"SCB EN0105A, permanent-dwelling metering points per elområde, 2024",10Y1001A1001A47J,SE4
+SI,SI,1,single area,10YSI-ELES-----O,
+SK,SK,1,single area,10YSK-SEPS-----K,

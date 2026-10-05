@@ -1,0 +1,45 @@
+
+# Live countries priced from config/static_prices.csv instead of spot + add-on,
+# for households on regulated tariffs that do not follow the day-ahead market
+# (candidates: BG CH FR HR HU MK ME PL RS SK, see README "Regulated countries").
+table_instead_of_live = []
+
+# Countries whose table rows a source supplies at run time instead of
+# static_prices.csv. US: EIA monthly residential price per state (EIA_API_KEY).
+[fetched_static]
+US = "eia"
+
+# Places with no published household price but a defensible guess. Their
+# average has basis "educated-guess", the price converted to the country's
+# currency, and this reason; they have no zones and stay out of the regional
+# and global means.
+[educated_guess]
+GS = { price = 0.35, currency = "GBP", reason = "No households live here. The Falkland Islands' price (0.35 FKP, at par with the pound), the territory it is run from." }
+AQ = { price = 0.50, currency = "EUR", reason = "No households live here. A guess: about what inhabited remote islands running on diesel pay (Falklands, St Helena, Norfolk Island, Cook Islands: 0.41 to 0.55 EUR/kWh)." }
+BV = { price = 0.50, currency = "EUR", reason = "No households live here. A guess: about what inhabited remote islands running on diesel pay (Falklands, St Helena, Norfolk Island, Cook Islands: 0.41 to 0.55 EUR/kWh)." }
+HM = { price = 0.50, currency = "EUR", reason = "No households live here. A guess: about what inhabited remote islands running on diesel pay (Falklands, St Helena, Norfolk Island, Cook Islands: 0.41 to 0.55 EUR/kWh)." }
+IO = { price = 0.50, currency = "EUR", reason = "No households live here. A guess: about what inhabited remote islands running on diesel pay (Falklands, St Helena, Norfolk Island, Cook Islands: 0.41 to 0.55 EUR/kWh)." }
+TF = { price = 0.50, currency = "EUR", reason = "No households live here. A guess: about what inhabited remote islands running on diesel pay (Falklands, St Helena, Norfolk Island, Cook Islands: 0.41 to 0.55 EUR/kWh)." }
+UM = { price = 0.50, currency = "EUR", reason = "No households live here. A guess: about what inhabited remote islands running on diesel pay (Falklands, St Helena, Norfolk Island, Cook Islands: 0.41 to 0.55 EUR/kWh)." }
+
+# Places with nothing to publish, not even a guess. Their average has basis
+# "no-published-price", this reason, and no price; no zones, out of the means.
+[no_published_price]
+KP = "No per-kWh tariff is published: a 2026 survey found 650 won a month for 2 to 2.5 hours of power a day and 25,000 to 30,000 won for about 6 more hours. The official won rate is about 500 times the market rate, so no conversion means anything."
+
+# Sanity bounds, in EUR per kWh all-in, checked before anything is written.
+# Live slots may be negative (spot can go to -500 EUR/MWh) and spike (cap +4000).
+[bounds]
+live_min = -1.0
+live_max = 5.0
+static_min = 0.001
+static_max = 1.5
+
+# Alternative prices the user can pick in the client, published as the
+# country's `options`. kind "fixed_energy": the tariff row's fixed_energy
+# replaces the spot price (Norway's Norgespris), for the average and every zone.
+[[options]]
+country = "NO"
+id = "norgespris"
+name = "Norgespris"
+kind = "fixed_energy"

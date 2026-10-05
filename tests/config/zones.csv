@@ -1,0 +1,5 @@
+country,id,name,area,weight,weight_source
+SE,SE3,SE3 Stockholm,SE3,,
+SE,SE4,SE4 Malmö,SE4,,
+US,US-CA,California,,0.4,test
+US,US-TX,Texas,,0.6,test

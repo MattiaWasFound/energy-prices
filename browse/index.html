@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Household electricity prices, every country</title>
+<style>
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb;
+  --surface-2: #f3f2ef;
+  --line: #e4e3df;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --text-3: #8a8984;
+  --accent: #2a78d6;
+  --land-none: #e8e7e3;
+  --border-land: #fcfcfb;
+  /* ordinal: more precise = darker (blue 650 / 400 / 250; global = 250 hatched) */
+  --b-live: #104281;
+  --b-table: #3987e5;
+  --b-regional: #86b6ef;
+  --b-global: #86b6ef;
+  --b-guess: #b3c3d6;
+  --b-none: #a8a59c;
+  --hatch-bg: #cde2fb;
+  /* sequential price ramp (blue 150 .. 700) */
+  --p0: #b7d3f6; --p1: #86b6ef; --p2: #5598e7; --p3: #2a78d6; --p4: #1c5cab; --p5: #184f95; --p6: #0d366b;
+  --good: #0ca30c;
+  --sea: #f1f4f8;
+  --shadow: 0 1px 2px rgb(0 0 0 / .06), 0 4px 16px rgb(0 0 0 / .06);
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --surface: #1a1a19;
+    --surface-2: #232321;
+    --line: #34342f;
+    --text: #ffffff;
+    --text-2: #c3c2b7;
+    --text-3: #8f8e86;
+    --accent: #3987e5;
+    --land-none: #2c2c29;
+    --border-land: #1a1a19;
+    /* on dark, more precise = brighter */
+    --b-live: #cde2fb;
+    --b-table: #5598e7;
+    --b-regional: #1c5cab;
+    --b-global: #1c5cab;
+    --b-guess: #4f6580;
+    --b-none: #5e5c55;
+    --hatch-bg: #2c2c29;
+    --p0: #184f95; --p1: #1c5cab; --p2: #256abf; --p3: #3987e5; --p4: #6da7ec; --p5: #9ec5f4; --p6: #cde2fb;
+    --sea: #141516;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 4px 16px rgb(0 0 0 / .3);
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--surface); color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+button, input { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+a { color: var(--accent); }
+
+/* ---------- shell: one screen on desktop, a normal page on phones ---------- */
+.app { display: grid; grid-template-rows: auto minmax(0, 1fr); max-width: 1600px; margin: 0 auto; padding: 0 20px 20px; }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; padding: 16px 0 14px; }
+.brand { display: flex; align-items: center; gap: 12px; margin-right: auto; }
+.brand .mark { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--b-live); color: var(--surface); font-size: 19px; }
+h1 { font-size: 19px; font-weight: 650; letter-spacing: -0.01em; margin: 0; line-height: 1.2; }
+.sub { color: var(--text-2); margin: 1px 0 0; font-size: 13px; }
+.tabs { display: flex; gap: 2px; background: var(--surface-2); border-radius: 12px; padding: 3px; overflow-x: auto; }
+.tabs a { padding: 6px 14px; border-radius: 9px; color: var(--text-2); text-decoration: none; font-weight: 550; font-size: 14px; white-space: nowrap; }
+.tabs a:hover { color: var(--text); }
+.tabs a[aria-current="page"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+.tabs .n { font-size: 12px; color: var(--text-3); margin-left: 4px; font-variant-numeric: tabular-nums; }
+.view { min-height: 0; }
+
+/* ---------- map tab ---------- */
+.mapview { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 16px; }
+.mapcard { position: relative; border-radius: 18px; overflow: hidden; background: var(--sea); min-height: 420px; }
+svg.map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+svg.map.dragging { cursor: grabbing; }
+svg.map path { fill: var(--land-none); stroke: var(--sea); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
+svg.map path.in { cursor: pointer; }
+svg.map path.hover { stroke: var(--text); stroke-width: 1.2; }
+svg.map path.sel { stroke: var(--text); stroke-width: 2; }
+.float { position: absolute; background: var(--surface); border-radius: 12px; box-shadow: var(--shadow); }
+.modes { top: 14px; left: 14px; padding: 3px; display: flex; }
+.seg { display: inline-flex; background: var(--surface-2); border-radius: 10px; padding: 3px; }
+.seg button, .modes button { border: 0; background: transparent; padding: 5px 12px; border-radius: 9px; cursor: pointer; color: var(--text-2); font-size: 14px; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+.modes button[aria-pressed="true"] { background: var(--surface-2); color: var(--text); }
+.legend { left: 14px; bottom: 14px; padding: 10px 12px; display: grid; gap: 3px; font-size: 13px; color: var(--text-2); }
+.legend span { display: flex; align-items: center; gap: 8px; }
+.legend span b { margin-left: auto; padding-left: 14px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; flex: none; }
+.legend.ramp { display: flex; align-items: center; gap: 0; }
+.legend.ramp i { width: 24px; height: 10px; border-radius: 0; }
+.legend.ramp i:first-of-type { border-radius: 4px 0 0 4px; }
+.legend.ramp i:last-of-type { border-radius: 0 4px 4px 0; }
+.legend.ramp span { margin: 0 8px; }
+.hatch { background: repeating-linear-gradient(45deg, var(--b-global) 0 2px, var(--hatch-bg) 2px 5px) !important; }
+.zoom { right: 14px; bottom: 14px; display: flex; flex-direction: column; overflow: hidden; }
+.zoom button { width: 36px; height: 36px; border: 0; background: none; cursor: pointer; font-size: 18px; color: var(--text-2); }
+.zoom button + button { border-top: 1px solid var(--line); }
+.zoom button:hover { color: var(--text); }
+.credit { position: absolute; right: 64px; bottom: 16px; font-size: 12px; color: var(--text-3); }
+.credit a { color: inherit; }
+.tip { position: fixed; pointer-events: none; background: var(--text); color: var(--surface); padding: 6px 10px; border-radius: 8px;
+  font-size: 13px; line-height: 1.35; z-index: 10; max-width: 260px; display: none; }
+.tip b { font-weight: 600; }
+
+/* ---------- side panel: country list, or one country ---------- */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.listhead { padding: 14px 14px 8px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.search { width: 100%; font-size: 16px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); outline: none; }
+.search:focus { border-color: var(--accent); }
+.sortrow { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-3); padding: 0 4px; }
+.sortrow button { border: 0; background: none; padding: 0; cursor: pointer; color: inherit; font-size: 12px; }
+.sortrow button[aria-pressed="true"] { color: var(--text); font-weight: 600; }
+.rows { overflow: auto; min-height: 0; flex: 1; padding: 4px 6px 8px; }
+.row { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 0 10px; width: 100%; border: 0; background: none; text-align: left; padding: 6px 8px; border-radius: 10px; cursor: pointer; }
+.row:hover { background: var(--surface-2); }
+.row .fl { font-size: 18px; line-height: 1; }
+.row .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row .nm small { color: var(--text-3); font-size: 12px; }
+.row .pr { text-align: right; font-variant-numeric: tabular-nums; font-size: 14px; }
+.row .pr small { display: block; color: var(--text-3); font-size: 12px; line-height: 1.2; }
+.row .sw { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
+.empty { padding: 20px; color: var(--text-3); text-align: center; font-size: 14px; }
+.detail { overflow: auto; min-height: 0; flex: 1; padding: 14px 18px 18px; }
+.back { border: 0; background: var(--surface-2); border-radius: 9px; padding: 4px 10px; cursor: pointer; color: var(--text-2); font-size: 13px; }
+.back:hover { color: var(--text); }
+.detail .flag { font-size: 34px; line-height: 1; margin-top: 12px; }
+.detail h2 { font-size: 20px; margin: 6px 0 0; font-weight: 650; }
+.muted { color: var(--text-2); font-size: 13px; }
+.big { font-size: 34px; font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; margin: 12px 0 0; }
+.big small { font-size: 15px; font-weight: 500; color: var(--text-2); }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); margin-top: 8px; }
+.badge i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); font-weight: 600; margin: 22px 0 8px; }
+.zones { display: grid; gap: 4px; }
+.zone { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 6px 8px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; text-align: left; background: none; }
+.zone:hover { background: var(--surface-2); }
+.zone[aria-pressed="true"] { border-color: var(--accent); }
+.zone .bar { grid-column: 1 / -1; height: 6px; border-radius: 0 4px 4px 0; background: var(--accent); }
+.zone .v { font-variant-numeric: tabular-nums; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: 13px; }
+dt { color: var(--text-2); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart .grid line { stroke: var(--line); }
+.chart text { fill: var(--text-3); font-size: 11px; font-variant-numeric: tabular-nums; }
+.chart .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; }
+.chart .now { stroke: var(--text-2); stroke-dasharray: 3 3; }
+.chart .cross { stroke: var(--text); stroke-width: 1; }
+.chart .dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+.notes-list { display: grid; gap: 10px; }
+.notes-list div { font-size: 13px; color: var(--text-2); }
+.notes-list b { display: block; color: var(--text); font-weight: 600; font-size: 14px; }
+
+/* ---------- findings and data tabs: they scroll inside the screen ---------- */
+.scroll { overflow: auto; border-radius: 18px; }
+.lead { color: var(--text-2); margin: 4px 0 18px; max-width: 72ch; }
+.cards { columns: 4 280px; column-gap: 14px; }
+.finding { break-inside: avoid; margin: 0 0 14px; padding: 16px 16px 12px; border-radius: var(--radius); background: var(--surface-2); }
+.finding .fig { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; color: var(--accent); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.finding h4 { font-size: 15px; margin: 6px 0 6px; font-weight: 650; line-height: 1.3; }
+.finding p { margin: 0; font-size: 14px; color: var(--text-2); }
+.finding .foot { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+.chip { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 0 7px; cursor: pointer; background: var(--surface); font-size: 14px; }
+.chip:hover { border-color: var(--accent); }
+.doc { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; align-items: start; padding: 8px 4px 24px; }
+.doc-main { max-width: 76ch; min-width: 0; }
+.doc h2 { font-size: 22px; font-weight: 650; margin: 4px 0 8px; letter-spacing: -0.01em; }
+.doc h3 { font-size: 16px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--text); margin: 28px 0 6px; }
+.doc-side { position: sticky; top: 0; }
+.doc-side h3:first-child { margin-top: 4px; }
+.doc p, .doc li { color: var(--text-2); }
+.doc code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--surface-2); padding: 1px 5px; border-radius: 5px; color: var(--text); }
+.doc pre { background: var(--surface-2); border-radius: 12px; padding: 14px 16px; overflow-x: auto; margin: 12px 0 0; }
+.doc pre code { background: none; padding: 0; font-size: 12.5px; line-height: 1.55; }
+.links { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 16px 0 0; }
+.link { display: block; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; }
+.link:hover { border-color: var(--accent); }
+.link b { display: block; color: var(--text); font-weight: 600; }
+.link span { font-size: 13px; color: var(--text-2); }
+.bases { grid-template-columns: max-content 1fr; gap: 10px 14px; margin: 12px 0 0; }
+.bases dt { white-space: nowrap; color: var(--text); }
+.bases dd { font-size: 14px; color: var(--text-2); }
+ul.plain { list-style: none; padding: 0; margin: 0; }
+ul.plain li { font-size: 14px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+
+@media (min-width: 981px) {
+  html, body { height: 100%; overflow: hidden; }
+  .app { height: 100dvh; }
+  .mapview { height: 100%; }
+}
+@media (max-width: 980px) {
+  .app { padding: 0 12px 24px; }
+  .mapview, .doc { grid-template-columns: 1fr; }
+  .mapcard { aspect-ratio: 1.25; min-height: 0; }
+  .panel { max-height: 80vh; }
+  .doc-side { position: static; }
+  .legend:not(.ramp), .credit, .zoom { display: none; }
+  .legend.ramp { left: 10px; bottom: 10px; padding: 6px 8px; font-size: 12px; }
+  .legend.ramp i { width: 14px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">⚡</div>
+      <div>
+        <h1>Household electricity prices</h1>
+        <p class="sub" id="sub"></p>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Sections">
+      <a href="#map">Map</a>
+      <a href="#findings">What we found<span class="n" id="nfind"></span></a>
+      <a href="#data">Use the data</a>
+    </nav>
+  </header>
+
+  <div class="view mapview" data-tab="map">
+    <section class="mapcard">
+      <svg class="map" id="map" role="img" aria-label="Map of countries coloured by price basis"></svg>
+      <div class="float modes" id="mode" role="group" aria-label="Colour by">
+        <button data-mode="price" aria-pressed="true">Price now</button>
+        <button data-mode="basis" aria-pressed="false">How it's priced</button>
+      </div>
+      <div class="float legend" id="legend"></div>
+      <div class="credit">Sources and licence: <a href="#data">Use the data</a></div>
+      <div class="float zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button></div>
+    </section>
+    <aside class="panel" id="panel">
+      <div class="listhead" id="listhead">
+        <input class="search" id="search" type="search" placeholder="Search 250 countries" aria-label="Search countries" autocomplete="off">
+        <div class="sortrow"><button id="sortname" aria-pressed="false">Country</button><button id="sorteur" aria-pressed="true">Price now ↓</button></div>
+      </div>
+      <div class="rows" id="rows"></div>
+      <div class="detail" id="detail" hidden></div>
+    </aside>
+  </div>
+
+  <section class="view scroll" data-tab="findings" hidden>
+    <p class="lead">What turned up while pricing every country: how markets, taxes and subsidies work, and where the data is thin. Click a flag to open that country on the map.</p>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="view scroll" data-tab="data" hidden>
+    <div class="doc">
+    <div class="doc-main">
+      <h2>One file, every country</h2>
+      <p>Everything on this site comes from one JSON file, rebuilt every day after the European day-ahead auction (about 13:00 Central European time). Download it once per session and read the price for the current time. There is no API key and no rate limit, and it can be fetched from any web page.</p>
+      <div class="links">
+        <a class="link" href="v1/prices.json"><b>prices.json</b><span>the data, about 120 KB</span></a>
+        <a class="link" href="v1/prices.schema.json"><b>prices.schema.json</b><span>the format, as JSON Schema</span></a>
+        <a class="link" href="https://github.com/MattiaWasFound/energy-prices"><b>GitHub</b><span>code, price tables and their sources</span></a>
+      </div>
+
+      <h3>Reading a price</h3>
+      <p>Prices are per kWh, all taxes and fees included, in the currency households are billed in. <code>fx</code> gives units per euro. Each country has an <code>average</code>, and some have <code>zones</code> (regions, states, bidding zones) with the same fields. Live countries carry a <code>series</code>: one price per 15 or 60 minutes from <code>start</code>. Every entry has a <code>flat</code> price for when there is no series, except North Korea's.</p>
+<pre><code>const url = "https://mattiawasfound.github.io/energy-prices/v1/prices.json";
+const file = await (await fetch(url)).json();
+
+function priceNow(entry, now = Date.now()) {
+  const s = entry.series;
+  if (s) {
+    const i = Math.floor((now - Date.parse(s.start)) / (s.step_minutes * 60000));
+    if (i &gt;= 0 &amp;&amp; i &lt; s.values.length) return s.values[i];
+  }
+  return entry.flat ?? null;   // null: no published price
+}
+
+const dk = file.countries.DK;
+priceNow(dk.average);                          // DKK per kWh
+priceNow(dk.average) / file.fx[dk.currency];   // EUR per kWh</code></pre>
+
+      <h3>How sure each price is</h3>
+      <p><code>basis</code> says where a figure came from and <code>precision</code> how far to trust it. A client should show both, and an entry's <code>reason</code> when it has one.</p>
+      <dl class="bases" id="bases"></dl>
+
+      <h3>Caveats</h3>
+      <ul>
+        <li>These are rough household figures, not tariffs. A real bill depends on the supplier, the contract, the consumption and local fees.</li>
+        <li>Prices are converted at official exchange rates, which flatter countries whose street rate is far weaker (Cuba, Iran, Lebanon, Venezuela and a few more).</li>
+        <li>Tables are updated by hand; each row says the month it describes.</li>
+      </ul>
+    </div>
+    <aside class="doc-side">
+      <h3>Licence</h3>
+      <p>The data is <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, the code MIT. Credit “energy-prices” with a link, and pass on the source credits below.</p>
+      <h3>Sources</h3>
+      <ul class="plain">
+        <li>Day-ahead prices: ENTSO-E Transparency Platform, with Energi Data Service (Energinet) as backup</li>
+        <li>Exchange rates: European Central Bank and Frankfurter</li>
+        <li>United States: US Energy Information Administration</li>
+        <li>Europe’s tables and add-ons: Eurostat and Ember</li>
+        <li>Everywhere else: about 190 regulator and utility tariff documents, one per row in the tables</li>
+        <li>Map: Natural Earth via world-atlas</li>
+      </ul>
+    </aside>
+    </div>
+  </section>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const D = /*DATA*/null;
+const P = D.prices;
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const now = new Date();
+
+const BASIS = {
+  "day-ahead": { label: "Live day-ahead", key: "live",
+    say: "Day-ahead spot price + a fixed add-on for grid, taxes and margin, times VAT. Changes every 15 minutes." },
+  "country-table": { label: "Published table", key: "table",
+    say: "An average household price from a published table." },
+  "regional-average": { label: "Regional average", key: "regional",
+    say: "No national figure yet: the average of the countries in the same region." },
+  "global-average": { label: "Global average", key: "global",
+    say: "No national or regional figure: the average of every priced country." },
+  "educated-guess": { label: "Educated guess", key: "guess",
+    say: "No published price, but a defensible guess. The reason says what it rests on." },
+  "no-published-price": { label: "No published price", key: "none",
+    say: "Nobody lives here, or no household tariff is published. The file gives a reason instead of a price." },
+};
+
+function flag(code) {
+  return String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
+}
+function el(tag, attrs = {}, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v);
+  }
+  n.append(...kids.flat().filter((k) => k != null));
+  return n;
+}
+// Global average is hatched: it shares the lightest step with regional.
+function swatch(key) { return el("i", key === "global" ? { class: "hatch" } : { style: `background:var(--b-${key})` }); }
+function svgEl(tag, attrs = {}) {
+  const n = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  return n;
+}
+function fmt(v, cur) {
+  const digits = Math.abs(v) >= 100 ? 1 : Math.abs(v) >= 10 ? 2 : 3;
+  try {
+    return new Intl.NumberFormat(undefined, { style: "currency", currency: cur,
+      minimumFractionDigits: digits, maximumFractionDigits: digits }).format(v);
+  } catch { return `${v.toFixed(digits)} ${cur}`; }
+}
+const eurFmt = (v) => `€${v.toFixed(3)}`;
+
+// The price that applies now: the series slot covering this instant, else flat.
+function priceNow(entry) {
+  const s = entry.series;
+  if (s) {
+    const i = Math.floor((now - new Date(s.start)) / (s.step_minutes * 60000));
+    if (i >= 0 && i < s.values.length) return { v: s.values[i], live: true };
+  }
+  return { v: entry.flat ?? null, live: false };
+}
+function eur(code, v) { return v / P.fx[P.countries[code].currency]; }
+
+// ---------- use the data ----------
+function renderBases() {
+  $("bases").replaceChildren(...Object.entries(BASIS).flatMap(([id, b]) => [
+    el("dt", {}, el("span", { class: "badge", style: "margin:0" }, swatch(b.key), b.label)),
+    el("dd", {}, el("code", {}, id), " ", b.say)]));
+}
+
+// ---------- tabs (#map, #findings, #data) ----------
+function showTab() {
+  const tab = ["findings", "data"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "map";
+  for (const s of document.querySelectorAll("[data-tab]")) s.hidden = s.dataset.tab !== tab;
+  for (const a of $("tabs").children) {
+    if (a.getAttribute("href") === "#" + tab) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  }
+  if (tab === "map") fit(WORLD);
+}
+function openOnMap(code) {
+  if (location.hash !== "#map") { history.pushState(null, "", "#map"); showTab(); }
+  select(code);
+  if (matchMedia("(max-width: 980px)").matches) $("panel").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// ---------- map geometry (TopoJSON decode + Equal Earth projection) ----------
+const G = D.geo;
+const arcs = G.arcs.map((arc) => {
+  let x = 0, y = 0;
+  return arc.map(([dx, dy]) => {
+    x += dx; y += dy;
+    return [x * G.transform.scale[0] + G.transform.translate[0], y * G.transform.scale[1] + G.transform.translate[1]];
+  });
+});
+const A1 = 1.340264, A2 = -0.081106, A3 = 0.000893, A4 = 0.003796, M = Math.sqrt(3) / 2;
+function project([lon, lat]) {
+  const l = lon * Math.PI / 180, p = lat * Math.PI / 180;
+  const t = Math.asin(M * Math.sin(p)), t2 = t * t, t6 = t2 * t2 * t2;
+  const x = l * Math.cos(t) / (M * (A1 + 3 * A2 * t2 + t6 * (7 * A3 + 9 * A4 * t2)));
+  const y = t * (A1 + A2 * t2 + t6 * (A3 + A4 * t2));
+  return [x * 160, -y * 160];
+}
+function ring(indices) {
+  const pts = [];
+  for (const i of indices) {
+    const a = (i >= 0 ? arcs[i] : arcs[~i].slice().reverse()).map((p) => [...p]);
+    pts.push(...(pts.length ? a.slice(1) : a));
+  }
+  // A ring that jumps across the 180° meridian (Chukotka) is drawn on the far
+  // side instead of as a band around the whole map.
+  if (pts.some((p, i) => i && Math.abs(p[0] - pts[i - 1][0]) > 180)) {
+    for (const p of pts) if (p[0] < 0) p[0] += 360;
+  }
+  return "M" + pts.map((p) => project(p).map((n) => n.toFixed(2)).join(",")).join("L") + "Z";
+}
+const shapes = G.geometries.map((g) => {
+  const polys = g.type === "Polygon" ? [g.arcs] : g.arcs;
+  return { id: g.id, d: polys.map((poly) => poly.map(ring).join("")).join("") };
+});
+const WORLD = (() => { const [x0] = project([-180, 0]), [x1] = project([180, 0]); const [, y0] = project([0, 84]), [, y1] = project([0, -58]); return [x0, y0, x1 - x0, y1 - y0]; })();
+
+const svg = $("map");
+let vb = [...WORLD];
+svg.innerHTML = `<defs><pattern id="hatch" patternUnits="userSpaceOnUse" width="1.6" height="1.6" patternTransform="rotate(45)">
+  <rect width="1.6" height="1.6" style="fill:var(--hatch-bg)"/><rect width="0.7" height="1.6" style="fill:var(--b-global)"/></pattern></defs>`;
+// One country can have several shapes (Australia and Ashmore, Somalia and Somaliland, Cyprus and N. Cyprus).
+const paths = new Map();
+for (const s of shapes) {
+  const p = svgEl("path", { d: s.d });
+  p.dataset.id = s.id;
+  svg.append(p);
+  paths.set(s.id, [...(paths.get(s.id) || []), p]);
+}
+function setViewBox() { svg.setAttribute("viewBox", vb.map((n) => n.toFixed(2)).join(" ")); }
+// Fit the requested box to the element's aspect so nothing is cropped.
+function fit(box) {
+  const r = svg.getBoundingClientRect(), aspect = r.width / Math.max(r.height, 1);
+  let [x, y, w, h] = box;
+  if (w / h < aspect) { const nw = h * aspect; x -= (nw - w) / 2; w = nw; } else { const nh = w / aspect; y -= (nh - h) / 2; h = nh; }
+  vb = [x, y, w, h]; setViewBox();
+}
+function zoomAt(f, cx, cy) {
+  const [x, y, w, h] = vb;
+  const nw = Math.min(Math.max(w * f, 4), WORLD[2] * 1.6), k = nw / w;
+  vb = [cx - (cx - x) * k, cy - (cy - y) * k, nw, h * k]; setViewBox();
+}
+function toMap(clientX, clientY) {
+  const r = svg.getBoundingClientRect();
+  return [vb[0] + (clientX - r.left) / r.width * vb[2], vb[1] + (clientY - r.top) / r.height * vb[3]];
+}
+svg.addEventListener("wheel", (e) => { e.preventDefault(); const [cx, cy] = toMap(e.clientX, e.clientY); zoomAt(Math.exp(e.deltaY * 0.0015), cx, cy); }, { passive: false });
+$("zin").onclick = () => zoomAt(1 / 1.5, vb[0] + vb[2] / 2, vb[1] + vb[3] / 2);
+$("zout").onclick = () => zoomAt(1.5, vb[0] + vb[2] / 2, vb[1] + vb[3] / 2);
+
+// Drag to pan, pinch to zoom. Capture only once the pointer has moved, so a tap still clicks a country.
+const pointers = new Map();
+let drag = null, pinch = null;
+svg.addEventListener("pointerdown", (e) => {
+  pointers.set(e.pointerId, [e.clientX, e.clientY]);
+  if (pointers.size === 1) drag = { x: e.clientX, y: e.clientY, vb: [...vb], moved: false, id: e.pointerId };
+  if (pointers.size === 2) {
+    const [a, b] = [...pointers.values()];
+    pinch = { dist: Math.hypot(a[0] - b[0], a[1] - b[1]), vb: [...vb] };
+    drag = null;
+  }
+});
+svg.addEventListener("pointermove", (e) => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId, [e.clientX, e.clientY]);
+  if (pinch && pointers.size === 2) {
+    const [a, b] = [...pointers.values()];
+    const d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+    vb = [...pinch.vb]; const [cx, cy] = toMap((a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+    zoomAt(pinch.dist / d, cx, cy);
+    return;
+  }
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (!drag.moved && Math.hypot(dx, dy) < 5) return;
+  if (!drag.moved) { drag.moved = true; svg.setPointerCapture(drag.id); svg.classList.add("dragging"); hideTip(); }
+  const r = svg.getBoundingClientRect();
+  vb = [drag.vb[0] - dx / r.width * drag.vb[2], drag.vb[1] - dy / r.height * drag.vb[3], drag.vb[2], drag.vb[3]];
+  setViewBox();
+});
+function endPointer(e) {
+  pointers.delete(e.pointerId);
+  if (pointers.size < 2) pinch = null;
+  if (drag && drag.id === e.pointerId) {
+    if (!drag.moved) { const id = e.target.dataset && e.target.dataset.id; if (id && P.countries[id]) openOnMap(id); }
+    drag = null; svg.classList.remove("dragging");
+  }
+}
+svg.addEventListener("pointerup", endPointer);
+svg.addEventListener("pointercancel", endPointer);
+
+// ---------- colour ----------
+let mode = "price";
+const PRICE_BREAKS = [0.10, 0.15, 0.20, 0.25, 0.30, 0.40];
+function priceClass(e) { let i = 0; while (i < PRICE_BREAKS.length && e >= PRICE_BREAKS[i]) i++; return i; }
+function colourOf(code) {
+  const c = P.countries[code];
+  if (!c) return null;
+  if (mode === "basis") return c.average.basis === "global-average" ? "url(#hatch)" : `var(--b-${BASIS[c.average.basis].key})`;
+  const v = priceNow(c.average).v;
+  return v == null ? "var(--b-none)" : `var(--p${priceClass(eur(code, v))})`;
+}
+function renderLegend() {
+  const lg = $("legend");
+  if (mode === "basis") {
+    lg.className = "float legend";
+    const all = Object.values(P.countries);
+    lg.replaceChildren(...Object.entries(BASIS).map(([id, b]) => [b, all.filter((c) => c.average.basis === id).length])
+      .filter(([, n]) => n).map(([b, n]) => el("span", {}, swatch(b.key), b.label, el("b", {}, n))));
+  } else {
+    lg.className = "float legend ramp";
+    lg.replaceChildren(el("span", {}, "€/kWh  <0.10"), ...PRICE_BREAKS.concat([null]).map((_, i) => el("i", { style: `background:var(--p${i})`, title: i === 0 ? "< 0.10" : i === PRICE_BREAKS.length ? "≥ 0.40" : `${PRICE_BREAKS[i - 1]}–${PRICE_BREAKS[i]}` })), el("span", {}, "≥0.40"));
+  }
+}
+function paint() {
+  for (const [id, ps] of paths) {
+    const col = colourOf(id);
+    for (const p of ps) {
+      p.style.fill = col || "";
+      p.classList.toggle("in", !!col);
+      p.classList.toggle("sel", id === selected);
+    }
+  }
+  svg.setAttribute("aria-label", mode === "basis" ? "Map of countries coloured by how the price is decided" : "Map of countries coloured by price per kWh now, in euros");
+}
+
+// ---------- tooltip ----------
+const tip = $("tip");
+function showTip(x, y, html) {
+  tip.innerHTML = html; tip.style.display = "block";
+  const r = tip.getBoundingClientRect();
+  tip.style.left = Math.min(x + 14, innerWidth - r.width - 8) + "px";
+  tip.style.top = Math.max(8, y - r.height - 12) + "px";
+}
+function hideTip() { tip.style.display = "none"; }
+let hovered = null;
+svg.addEventListener("pointerover", (e) => {
+  const id = e.target.dataset && e.target.dataset.id;
+  if (hovered) hovered.classList.remove("hover");
+  hovered = null;
+  if (!id || !P.countries[id] || drag?.moved) return hideTip();
+  hovered = e.target; hovered.classList.add("hover");
+  hovered.parentNode.append(hovered); // draw the outline above neighbours
+});
+svg.addEventListener("pointermove", (e) => {
+  if (!hovered || drag?.moved) return;
+  const id = hovered.dataset.id, c = P.countries[id], n = priceNow(c.average);
+  showTip(e.clientX, e.clientY, `<b>${flag(id)} ${c.name}</b><br>${n.v == null ? "No published price" : `${fmt(n.v, c.currency)} · ${eurFmt(eur(id, n.v))}/kWh<br>${BASIS[c.average.basis].label}`}`);
+});
+svg.addEventListener("pointerleave", () => { hideTip(); if (hovered) hovered.classList.remove("hover"); hovered = null; });
+
+// ---------- panel ----------
+let selected = null, selectedZone = null, selectedOption = null;
+function select(code, zone = null, option = undefined) {
+  if (code !== selected) selectedOption = null;
+  if (option !== undefined) selectedOption = option;
+  const fresh = code !== selected;
+  selected = code; selectedZone = zone;
+  renderPanel(); paint();
+  if (fresh) $("detail").scrollTop = 0;
+  for (const p of paths.get(code) || []) p.parentNode.append(p);
+}
+function chart(entry, cur) {
+  const s = entry.series, n = s.values.length, W = 600, H = 210, L = 46, R = 8, T = 10, B = 26;
+  const t0 = new Date(s.start).getTime(), step = s.step_minutes * 60000;
+  let lo = Math.min(...s.values), hi = Math.max(...s.values);
+  const pad = (hi - lo) * 0.08 || 0.1; lo -= pad; hi += pad;
+  const X = (i) => L + (i / n) * (W - L - R), Y = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B);
+  const g = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, class: "chart", role: "img", "aria-label": `Price per 15 minutes, ${fmt(Math.min(...s.values), cur)} to ${fmt(Math.max(...s.values), cur)}` });
+  const grid = svgEl("g", { class: "grid" });
+  const ticks = 4;
+  for (let k = 0; k <= ticks; k++) {
+    const v = lo + (hi - lo) * k / ticks, y = Y(v);
+    grid.append(svgEl("line", { x1: L, x2: W - R, y1: y, y2: y }));
+    const t = svgEl("text", { x: L - 6, y: y + 4, "text-anchor": "end" }); t.textContent = fmt(v, cur).replace(/[^\d.,−-]/g, ""); grid.append(t);
+  }
+  const hourFmt = new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit" });
+  const dayFmt = new Intl.DateTimeFormat(undefined, { weekday: "short" });
+  for (let i = 0; i < n; i++) {
+    const t = new Date(t0 + i * step);
+    if (t.getMinutes() === 0 && t.getHours() % 6 === 0) {
+      const label = svgEl("text", { x: X(i), y: H - 8, "text-anchor": "middle" });
+      label.textContent = t.getHours() === 0 ? dayFmt.format(t) : hourFmt.format(t);
+      g.append(label);
+    }
+  }
+  g.append(grid);
+  let d = "";
+  s.values.forEach((v, i) => { d += `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(v).toFixed(1)}H${X(i + 1).toFixed(1)}`; });
+  g.append(svgEl("path", { d, class: "line" }));
+  const ni = (now - t0) / step;
+  if (ni >= 0 && ni < n) g.append(svgEl("line", { x1: X(ni), x2: X(ni), y1: T, y2: H - B, class: "now" }));
+  const cross = svgEl("line", { y1: T, y2: H - B, class: "cross", visibility: "hidden" });
+  const dot = svgEl("circle", { r: 4, class: "dot", visibility: "hidden" });
+  const hit = svgEl("rect", { x: L, y: 0, width: W - L - R, height: H, fill: "transparent" });
+  g.append(cross, dot, hit);
+  hit.addEventListener("pointermove", (e) => {
+    const r = g.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W;
+    const i = Math.max(0, Math.min(n - 1, Math.floor((x - L) / (W - L - R) * n)));
+    const cx = (X(i) + X(i + 1)) / 2;
+    cross.setAttribute("x1", cx); cross.setAttribute("x2", cx); cross.setAttribute("visibility", "visible");
+    dot.setAttribute("cx", cx); dot.setAttribute("cy", Y(s.values[i])); dot.setAttribute("visibility", "visible");
+    const t = new Date(t0 + i * step);
+    showTip(e.clientX, e.clientY, `<b>${fmt(s.values[i], cur)}</b> /kWh<br>${dayFmt.format(t)} ${hourFmt.format(t)}–${hourFmt.format(new Date(t0 + (i + 1) * step))}`);
+  });
+  hit.addEventListener("pointerleave", () => { cross.setAttribute("visibility", "hidden"); dot.setAttribute("visibility", "hidden"); hideTip(); });
+  return g;
+}
+function renderPanel() {
+  $("listhead").hidden = $("rows").hidden = !!selected;
+  $("detail").hidden = !selected;
+  if (!selected) return;
+  const panel = $("detail");
+  const c = P.countries[selected], cur = c.currency;
+  const option = selectedOption && (c.options || []).find((o) => o.id === selectedOption);
+  const base = option || c;  // an option repeats the country's average and zones
+  const entry = selectedZone ? base.zones.find((z) => z.id === selectedZone) : base.average;
+  const n = priceNow(entry), b = BASIS[entry.basis];
+  const kids = [
+    el("button", { class: "back", onclick: unselect }, "← All countries"),
+    el("div", { class: "flag" }, flag(selected)),
+    el("h2", {}, c.name + (selectedZone ? ` · ${entry.name}` : "")),
+    el("div", { class: "muted" }, `${selected} · billed in ${cur}${c.zones.length && !selectedZone ? ` · country average of ${c.zones.length} zones` : ""}`),
+    c.options ? el("div", { class: "seg", style: "margin-top:12px", role: "group", "aria-label": "Price plan" },
+      el("button", { "aria-pressed": String(!option), onclick: () => select(selected, selectedZone, null) }, "Spot (default)"),
+      c.options.map((o) => el("button", { "aria-pressed": String(o === option), onclick: () => select(selected, selectedZone, o.id) }, o.name))) : null,
+    n.v == null ? el("div", { class: "big" }, "–", " ", el("small", {}, "no published price")) :
+      el("div", { class: "big" }, fmt(n.v, cur), " ", el("small", {}, `/ kWh  ·  ${eurFmt(n.v / P.fx[cur])}`)),
+    el("div", { class: "badge" }, swatch(b.key), b.label, entry.as_of ? ` · ${entry.as_of}` : "", n.live ? " · this 15 minutes" : ""),
+    el("p", { class: "muted" }, b.say),
+    entry.reason ? el("p", {}, entry.reason) : null,
+  ];
+  if (entry.series) {
+    kids.push(el("h3", {}, "Today and tomorrow"), chart(entry, cur),
+      el("p", { class: "muted", style: "margin:4px 0 0" }, `Mean of the last full day: ${fmt(entry.flat, cur)} · dashed line is now, in your time zone`));
+  }
+  if (c.zones.length) {
+    const vals = base.zones.map((z) => priceNow(z).v), max = Math.max(...vals, priceNow(base.average).v);
+    kids.push(el("h3", {}, c.zone_label || "Zones"), el("div", { class: "zones" },
+      el("button", { class: "zone", "aria-pressed": String(!selectedZone), onclick: () => select(selected) },
+        el("span", {}, "Country average"), el("span", { class: "v" }, fmt(priceNow(base.average).v, cur)),
+        el("span", { class: "bar", style: `width:${Math.max(2, priceNow(base.average).v / max * 100)}%` })),
+      base.zones.map((z, i) => el("button", { class: "zone", "aria-pressed": String(z.id === selectedZone), onclick: () => select(selected, z.id) },
+        el("span", {}, z.name, el("span", { class: "muted" }, z.basis === "day-ahead" ? "" : `  · ${BASIS[z.basis].label.toLowerCase()}`)),
+        el("span", { class: "v" }, fmt(vals[i], cur)),
+        el("span", { class: "bar", style: `width:${Math.max(2, vals[i] / max * 100)}%` })))));
+  }
+  // How it was computed
+  const rows = [];
+  if (entry.basis === "day-ahead" || option) {
+    const t = { ...(D.tariffs[selected] || {}) };
+    const area = selectedZone && D.areas.find((a) => a.area === entry.id && a.country === selected)?.area;
+    if (area && D.tariffs[area]) for (const [k, v] of Object.entries(D.tariffs[area])) if (v && k !== "scope") t[k] = v;
+    rows.push(["Add-on", `${fmt(+t.addon, cur)} /kWh excl. VAT`], ["VAT", `${(+t.vat * 100).toFixed(1)}%`]);
+    if (t.support_threshold && !option) rows.push(["Support", `${(+t.support_share * 100).toFixed(0)}% of spot above ${fmt(+t.support_threshold, cur)}`]);
+    if (option) rows.unshift(["Energy price", `${fmt(+t.fixed_energy, cur)} /kWh excl. VAT, fixed, in place of spot`]);
+    rows.push(["Confidence", t.confidence || "–"], ["How", t.note || "–"], ["Source", t.source || "–"]);
+    const areas = D.areas.filter((a) => a.country === selected);
+    if (areas.length > 1 && !selectedZone) rows.push(["Weights", areas.map((a) => `${a.area} ${(+a.weight * 100).toFixed(1)}%`).join(" · ")], ["Weight source", areas[0].weight_source]);
+    if (areas.length) rows.push(["Spot source", "ENTSO-E Transparency Platform" + (areas.some((a) => a.eds_area) ? "; Energi Data Service as backup" : "")]);
+  } else if (entry.basis === "country-table" && (D.settings.fetched_static || {})[selected]) {
+    rows.push(["Source", "US EIA, average residential price (revenue ÷ kWh sold), fetched each run"], ["Month", entry.as_of || "–"], ["Licence", "US government work, public domain"]);
+    const t = selectedZone && D.taxes[selectedZone];
+    if (t) rows.push(["Household taxes", `${(+t.rate * 100).toFixed(2)}% state + ${(+t.local_rate * 100).toFixed(1)}% local (est.)${+t.per_kwh ? ` + $${t.per_kwh}/kWh` : ""}`], ["Tax note", t.note]);
+    else rows.push(["Household taxes", "each state's, weighted by residential kWh sold"]);
+  } else if (entry.basis === "country-table") {
+    const s = D.static[selected + (selectedZone ? "/" + selectedZone : "")] || {};
+    rows.push(["Figure", `${s.price} ${s.currency} /kWh, all-in`], ["Month", s.as_of || "–"], ["Source", s.source || "–"], ["Licence", s.licence || "–"]);
+    if (s.note) rows.push(["Note", s.note]);
+  } else if (entry.basis === "regional-average") {
+    const peers = Object.keys(P.countries).filter((k) => D.regions[k] === D.regions[selected] && ["day-ahead", "country-table"].includes(P.countries[k].average.basis));
+    rows.push(["Region", D.regions[selected]], ["From", peers.map((k) => flag(k) + " " + k).join("  ")]);
+  }
+  if (rows.length) kids.push(el("h3", {}, "How this is computed"), el("dl", {}, rows.flatMap(([k, v]) => [el("dt", {}, k), el("dd", {}, v)])));
+  const notes = D.findings.filter((f) => f.countries.includes(selected));
+  if (notes.length) kids.push(el("h3", {}, "From the research"), el("div", { class: "notes-list" },
+    notes.map((f) => el("div", {}, el("b", {}, f.title), f.text))));
+  panel.replaceChildren(...kids.filter((k) => k != null));
+}
+
+// ---------- country list ----------
+let sortKey = "eur", query = "";
+function unselect() { selected = null; selectedZone = null; renderPanel(); paint(); }
+function renderList() {
+  const q = query.trim().toLowerCase();
+  const list = Object.entries(P.countries)
+    .filter(([k, c]) => !q || c.name.toLowerCase().includes(q) || k.toLowerCase() === q)
+    .map(([k, c]) => { const n = priceNow(c.average); return { k, c, v: n.v, eur: n.v == null ? -Infinity : eur(k, n.v) }; });
+  list.sort(sortKey === "eur" ? (a, b) => b.eur - a.eur : (a, b) => a.c.name.localeCompare(b.c.name));
+  $("rows").replaceChildren(...(list.length ? list.map((r) => el("button", { class: "row", onclick: () => select(r.k),
+      onpointerenter: () => hoverCountry(r.k), onpointerleave: () => hoverCountry(null) },
+    el("span", { class: "fl" }, flag(r.k)),
+    el("span", { class: "nm" }, r.c.name, r.c.zones.length ? el("small", {}, ` · ${r.c.zones.length} zones`) : null),
+    el("span", { class: "pr" }, r.v == null ? "–" : eurFmt(r.eur),
+      el("small", {}, el("i", { class: "sw", style: `background:var(--b-${BASIS[r.c.average.basis].key})` }), r.v == null ? "no price" : fmt(r.v, r.c.currency)))))
+    : [el("div", { class: "empty" }, "No country matches.")]));
+}
+function hoverCountry(code) {
+  for (const p of svg.querySelectorAll("path.hover")) p.classList.remove("hover");
+  for (const p of paths.get(code) || []) { p.classList.add("hover"); p.parentNode.append(p); }
+}
+$("search").addEventListener("input", (e) => { query = e.target.value; renderList(); });
+$("search").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { const first = $("rows").querySelector(".row"); if (first) first.click(); }
+});
+for (const [id, key] of [["sortname", "name"], ["sorteur", "eur"]]) $(id).addEventListener("click", () => {
+  sortKey = key;
+  $("sortname").setAttribute("aria-pressed", String(key === "name"));
+  $("sorteur").setAttribute("aria-pressed", String(key === "eur"));
+  renderList();
+});
+addEventListener("keydown", (e) => { if (e.key === "Escape" && selected) unselect(); });
+
+// ---------- research findings (docs/findings.md, parsed by tools/browse.py) ----------
+function renderResearch() {
+  const list = D.findings;
+  $("cards").replaceChildren(...list.map((f) => el("article", { class: "finding" },
+    f.figure ? el("div", { class: "fig" }, f.figure) : null,
+    el("h4", {}, f.title),
+    el("p", {}, f.text),
+    el("div", { class: "foot" },
+      f.countries.filter((k) => P.countries[k]).map((k) => el("span", { class: "chip", title: P.countries[k].name,
+        onclick: () => openOnMap(k) }, flag(k)))))));
+}
+
+// ---------- header, off-map, wiring ----------
+function renderHeader() {
+  const all = Object.values(P.countries);
+  const gen = new Date(P.generated_at);
+  $("sub").textContent = `Per kWh, all taxes and fees included · updated ${gen.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })}`;
+  $("search").placeholder = `Search ${all.length} countries`;
+}
+function renderAll() { renderLegend(); paint(); renderList(); renderPanel(); renderResearch(); }
+
+$("mode").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  mode = b.dataset.mode;
+  for (const x of $("mode").children) x.setAttribute("aria-pressed", String(x === b));
+  renderLegend(); paint();
+});
+addEventListener("resize", () => fit(WORLD));
+renderHeader();
+renderBases();
+$("nfind").textContent = D.findings.length;
+addEventListener("hashchange", showTab);
+fit(WORLD);
+showTab();
+renderAll();
+</script>
+</body>
+</html>

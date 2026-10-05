@@ -1,0 +1,4 @@
+country,zone,price,currency,as_of,source,licence,note
+FI,,0.2,EUR,2025-12,test,test,
+US,US-CA,0.33,USD,2026-07,test,test,
+US,US-TX,0.15,USD,2026-07,test,test,
