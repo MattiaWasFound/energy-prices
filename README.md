@@ -226,7 +226,8 @@ below wholesale. Listing a country in `table_instead_of_live` prices it from
 
 `.github/workflows/publish.yml` runs every day at 12:20 UTC, after the
 day-ahead results (published about 13:00 Central European time in winter, an
-hour earlier in UTC terms in summer), and on demand from the Actions tab. It downloads the published `prices.json` first,
+hour earlier in UTC terms in summer), on every push to `main`, and on demand
+from the Actions tab. It downloads the published `prices.json` first,
 so a failed source carries the previous entries forward, then runs
 `generate`, builds the map page, and deploys `site/` to GitHub Pages:
 
