@@ -1,5 +1,7 @@
 # energy-prices
 
+<img width="1582" height="947" alt="screen" src="https://github.com/user-attachments/assets/690d93f7-4ca3-459a-abe1-439aa7ccd8ad" />
+
 The household electricity price per kWh, all taxes and fees included, for
 every country, in one JSON file rebuilt every day:
 
