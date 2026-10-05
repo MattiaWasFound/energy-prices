@@ -222,6 +222,10 @@ below wholesale. Listing a country in `table_instead_of_live` prices it from
 | National regulators and statistics (ElCom, Ofgem, ANRE, ERE, Ukraine's PSO act) | static rows outside Eurostat or newer than it | per row in `static_prices.csv` | per row |
 | SCB, Elhub, ISTAT, Statistics Denmark | population weights | per row in `areas.csv` | yearly |
 
+The research behind these rows (the arithmetic, the sources compared and the
+judgement calls) is in [`docs/research/`](docs/research/), one dated folder per
+round.
+
 ## Publishing
 
 `.github/workflows/publish.yml` runs every day at 12:20 UTC, after the

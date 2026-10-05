@@ -1,0 +1,12 @@
+country,price,currency,as_of,consumption_kwh_month,includes,source_url,licence,confidence,note
+KG,1.64,KGS,2026-05,300,"national tariff up to 700 kWh; tax status open",https://nesk.kg/ru/abonentam/tarif/,"utility/regulator tariff (public regulatory document; rates are facts)",medium,"1.87 if VAT+sales tax added"
+KZ,33.0,KZT,2026-09,300,"midpoint Astana 28.12 / Almaty 37.92 incl. VAT 16%",https://www.esalmaty.kz/ru/home-tariffs,"utility/regulator tariff (public regulatory document; rates are facts)",medium,"Regional spread ~1.9x"
+TJ,0.4137,TJS,2026-02,300,"government decree flat household tariff",https://interfax.com/newsroom/top-stories/115538/,"utility/regulator tariff (public regulatory document; rates are facts)",medium,"VAT inclusion unconfirmed"
+TM,0.025,TMT,2017-11,300,"2017 decree household rate incl. VAT",https://turkmenistan.gov.tm/en/post/9220/new-charges-for-gas-electricity-housing-and-communal-transport-and-communications-services,"utility/regulator tariff (public regulatory document; rates are facts)",low,"Official vs street rate ~10x"
+UZ,733.33,UZS,2026-06,300,"PKM-243 blocks 650/900",https://www.spot.uz/ru/2026/05/15/energy-tariffs-up/,"utility/regulator tariff (public regulatory document; rates are facts)",high,""
+MN,248.95,MNT,2026-01,220,"ERC central grid blocks + base charge + VAT 10%",https://erc.gov.mn/mn/tariff-center,"utility/regulator tariff (public regulatory document; rates are facts)",high,""
+MY,0.2193,MYR,2026-10,300,"TNB 2025 tariff incl. EEI rebate; no SST at 300 kWh",https://www.mytnb.com.my/tariff/index.html,"utility/regulator tariff (public regulatory document; rates are facts)",high,"0.36 at 600 kWh"
+ID,1517,IDR,2026-07,200,"R-1 1300 VA 1444.70 + PPJ ~5% (assumed)",https://money.kompas.com/read/2026/10/01/134318126/tarif-listrik-per-kwh-oktober-2026-cek-daftar-harga-semua-golongan,"utility/regulator tariff (public regulatory document; rates are facts)",medium,"PPJ assumed"
+KH,610,KHR,2026-01,200,"EAC decision 032/2026 band 51-200 kWh",https://eac.gov.kh/,"utility/regulator tariff (public regulatory document; rates are facts)",medium,"VAT unverified"
+BN,0.038,BND,2012-01,1000,"DES blocks, no tax",https://www.des.gov.bn/electricity-tariff/,"utility/regulator tariff (public regulatory document; rates are facts)",medium,"Consumption assumed 1000 kWh"
+MM,112.5,MMK,2024-09,200,"MOEP blocks (stepped assumed)",https://elevenmyanmar.com/news/moep-announces-electricity-rate-increase-effective-sept-1,"utility/regulator tariff (public regulatory document; rates are facts)",low,"From news reports"

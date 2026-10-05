@@ -1,0 +1,8 @@
+country,id,name,area,weight,weight_source
+MX,MX-T1,Tarifa 1,,0.5799,residual: 49.5 M subsidised domestic users minus 20.8 M on summer tariffs 1A-1F; CFE via Expansión 2026-03-30 (20.8 M summer-tariff users = 42% of subsidised domestic users) https://expansion.mx/empresas/2026/03/30/cfe-tarifas-verano-2026-20-millones-consumidores-domesticos
+MX,MX-T1A,Tarifa 1A,,0.1015,"assumption: half of the 10.05 M summer-tariff users left after 1C, 1D, 1E, 1F; CFE via Expansión 2026-03-30 (20.8 M summer-tariff users = 42% of subsidised domestic users) https://expansion.mx/empresas/2026/03/30/cfe-tarifas-verano-2026-20-millones-consumidores-domesticos"
+MX,MX-T1B,Tarifa 1B,,0.1015,assumption: other half of the same residual; CFE via Expansión 2026-03-30 (20.8 M summer-tariff users = 42% of subsidised domestic users) https://expansion.mx/empresas/2026/03/30/cfe-tarifas-verano-2026-20-millones-consumidores-domesticos
+MX,MX-T1C,Tarifa 1C,,0.1174,"5.81 M 1C users, CFE data for Mar 2025 via El Financiero https://www.elfinanciero.com.mx/monterrey/2025/06/04/lidera-nl-en-el-pais-usuarios-de-tarifa-1c/"
+MX,MX-T1D,Tarifa 1D,,0.0442,"2.19 M = 83,077 NL users / 3.8% national, CFE Mar 2025 via El Financiero (same article)"
+MX,MX-T1E,Tarifa 1E,,0.0081,guess: 0.40 M (Baja California Sur and scattered hot localities); no published count
+MX,MX-T1F,Tarifa 1F,,0.0474,2.35 M = Sonora 1.105 M (Expreso/Infoson 2025) + Sinaloa 0.821 M (Noroeste 2024) + Mexicali/San Felipe 0.42 M (330k households x 1.26 users per household)

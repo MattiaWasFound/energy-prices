@@ -1,7 +1,8 @@
 # What the research found
 
 The findings behind `prices.json`, one per section. The sources for every
-figure are in the `source` columns of the tables in `config/`. Every section
+figure are in the `source` columns of the tables in `config/`, and the full
+research notes are in [`research/`](research/). Every section
 carries a marker line that `tools/browse.py` reads to place it on the browse
 page:
 

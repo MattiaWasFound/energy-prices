@@ -1,0 +1,42 @@
+1   Tarifa 1 (temperate)               mean   90 summer     90 winter    90 | 16%: year 1.355 summer 0.000 winter 1.355 | 8%: year 1.262 | border 0.03 -> 1.352
+1A  1A                                 mean  130 summer    147 winter   113 | 16%: year 1.305 summer 1.233 winter 1.399 | 8%: year 1.215 | border 0.00 -> 1.305
+1B  1B                                 mean  155 summer    186 winter   124 | 16%: year 1.307 summer 1.235 winter 1.416 | 8%: year 1.217 | border 0.00 -> 1.307
+1C  1C                                 mean  220 summer    293 winter   147 | 16%: year 1.324 summer 1.265 winter 1.442 | 8%: year 1.233 | border 0.10 -> 1.315
+1D  1D                                 mean  255 summer    328 winter   182 | 16%: year 1.335 summer 1.261 winter 1.470 | 8%: year 1.243 | border 0.28 -> 1.310
+1E  1E                                 mean  300 summer    412 winter   187 | 16%: year 1.179 summer 1.045 winter 1.473 | 8%: year 1.098 | border 0.00 -> 1.179
+1F  Sonora (all 72 municipalities)     mean  381 summer    520 winter   186 | 16%: year 1.081 summer 0.980 winter 1.474 | 8%: year 1.006 | border 0.24 -> 1.063
+1F  Sinaloa (all municipalities)       mean  365 summer    538 winter   192 | 16%: year 1.188 summer 1.085 winter 1.476 | 8%: year 1.106 | border 0.00 -> 1.188
+1F  Mexicali + San Felipe (BC)         mean  563 summer    844 winter   282 | 16%: year 1.447 summer 1.132 winter 2.395 | 8%: year 1.348 | border 1.00 -> 1.348
+
+zone 1   price 1.352 MXN/kWh at 90 kWh/month mean; summer 0.000 winter 1.352
+zone 1A  price 1.305 MXN/kWh at 130 kWh/month mean; summer 1.233 winter 1.399
+zone 1B  price 1.307 MXN/kWh at 155 kWh/month mean; summer 1.235 winter 1.416
+zone 1C  price 1.315 MXN/kWh at 220 kWh/month mean; summer 1.256 winter 1.432
+zone 1D  price 1.310 MXN/kWh at 255 kWh/month mean; summer 1.236 winter 1.442
+zone 1E  price 1.179 MXN/kWh at 300 kWh/month mean; summer 1.045 winter 1.473
+zone 1F  price 1.172 MXN/kWh at 408 kWh/month mean; summer 1.022 winter 1.598
+1   Tarifa 1 (temperate)               mean   90 summer     90 winter    90 | 16%: year 1.355 summer 0.000 winter 1.355 | 8%: year 1.262 | border 0.03 -> 1.352
+1A  1A                                 mean  130 summer    147 winter   113 | 16%: year 1.305 summer 1.233 winter 1.399 | 8%: year 1.215 | border 0.00 -> 1.305
+1B  1B                                 mean  155 summer    186 winter   124 | 16%: year 1.307 summer 1.235 winter 1.416 | 8%: year 1.217 | border 0.00 -> 1.307
+1C  1C                                 mean  220 summer    293 winter   147 | 16%: year 1.324 summer 1.265 winter 1.442 | 8%: year 1.233 | border 0.10 -> 1.315
+1D  1D                                 mean  255 summer    328 winter   182 | 16%: year 1.335 summer 1.261 winter 1.470 | 8%: year 1.243 | border 0.28 -> 1.310
+1E  1E                                 mean  300 summer    412 winter   187 | 16%: year 1.179 summer 1.045 winter 1.473 | 8%: year 1.098 | border 0.00 -> 1.179
+1F  Sonora (all 72 municipalities)     mean  381 summer    520 winter   186 | 16%: year 1.081 summer 0.980 winter 1.474 | 8%: year 1.006 | border 0.24 -> 1.063
+1F  Sinaloa (all municipalities)       mean  365 summer    538 winter   192 | 16%: year 1.188 summer 1.085 winter 1.476 | 8%: year 1.106 | border 0.00 -> 1.188
+1F  Mexicali + San Felipe (BC)         mean  563 summer    844 winter   282 | 16%: year 1.447 summer 1.132 winter 2.395 | 8%: year 1.348 | border 1.00 -> 1.348
+
+zone 1   price 1.352 MXN/kWh at 90 kWh/month mean; summer 0.000 winter 1.352
+zone 1A  price 1.305 MXN/kWh at 130 kWh/month mean; summer 1.233 winter 1.399
+zone 1B  price 1.307 MXN/kWh at 155 kWh/month mean; summer 1.235 winter 1.416
+zone 1C  price 1.315 MXN/kWh at 220 kWh/month mean; summer 1.256 winter 1.432
+zone 1D  price 1.310 MXN/kWh at 255 kWh/month mean; summer 1.236 winter 1.442
+zone 1E  price 1.179 MXN/kWh at 300 kWh/month mean; summer 1.045 winter 1.473
+zone 1F  price 1.172 MXN/kWh at 408 kWh/month mean; summer 1.022 winter 1.598
+
+July 2026 bill at equal consumption, IVA 16%, MXN/kWh:
+   150 kWh: 1 1.65  1A 1.23  1B 1.20  1C 1.17  1D 1.17  1E 0.98  1F 0.98  1Fson 0.98
+   300 kWh: 1 3.16  1A 2.95  1B 2.11  1C 1.26  1D 1.25  1E 0.98  1F 0.98  1Fson 0.98
+   600 kWh: 1 3.91  1A 3.80  1B 3.38  1C 2.23  1D 1.43  1E 1.10  1F 1.10  1Fson 0.98
+
+weights: {'1': 0.5798, '1A': 0.1015, '1B': 0.1015, '1C': 0.1174, '1D': 0.0442, '1E': 0.0081, '1F': 0.0474} sum 0.9999
+national: user-weighted mean of zone prices 1.327; kWh-weighted 1.305; mean use 140 kWh/month
